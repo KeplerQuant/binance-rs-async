@@ -1,7 +1,9 @@
 use std::collections::BTreeMap;
 
-use super::rest_model::{AccountBalance, AccountInformation, CanceledOrder, ChangeLeverageResponse, Order, OrderType,
-                        Position, PositionSide, Transaction, WorkingType};
+use super::rest_model::{
+    AccountBalance, AccountInformation, CanceledOrder, ChangeLeverageResponse, Order, OrderType, Position,
+    PositionSide, Transaction, WorkingType,
+};
 use crate::account::OrderCancellation;
 use crate::client::Client;
 use crate::errors::*;
@@ -48,7 +50,7 @@ pub struct GetOrderRequest {
     pub orig_client_order_id: Option<String>,
 }
 
-#[derive(Serialize, Default)]
+#[derive(Debug, Clone, Serialize, Default)]
 #[serde(rename_all = "camelCase")]
 pub struct OrderRequest {
     pub symbol: String,
@@ -99,7 +101,7 @@ impl FuturesAccount {
         self.client.get_signed("/fapi/v1/openOrders", &payload).await
     }
 
-    /// Place a test order    
+    /// Place a test order
     pub async fn place_order_test(&self, order: OrderRequest) -> Result<Transaction> {
         self.client
             .post_signed_p("/fapi/v1/order/test", order, self.recv_window)
