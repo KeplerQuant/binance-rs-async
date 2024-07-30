@@ -45,7 +45,7 @@ where
 pub struct GetOrderRequest {
     pub symbol: String,
     #[serde(rename = "orderId")]
-    pub order_id: Option<String>,
+    pub order_id: Option<u64>,
     #[serde(rename = "origClientOrderId")]
     pub orig_client_order_id: Option<String>,
 }
