@@ -6,6 +6,9 @@ use crate::rest_model::{string_or_float, string_or_float_opt, ExecutionType, Ord
 pub enum WebsocketEvent {
     AccountUpdate(Box<AccountUpdate>),
     OrderTradeUpdate(Box<OrderTradeUpdate>),
+    TradeLite(Box<TradeLiteUpdate>),
+    #[serde(other)]
+    Others,
 }
 
 #[derive(Debug, Deserialize)]
@@ -200,4 +203,32 @@ pub enum SelfTradePreventionMode {
     ExpireBoth,
     /// Expire maker order when STP trigger
     ExpireMaker,
+}
+
+#[derive(Debug, Deserialize)]
+pub struct TradeLiteUpdate {
+    #[serde(rename = "E")]
+    pub event_time: u64,
+    #[serde(rename = "T")]
+    pub trade_time: u64,
+    #[serde(rename = "s")]
+    pub symbol: String,
+    #[serde(rename = "q")]
+    pub original_quantity: String,
+    #[serde(rename = "p")]
+    pub original_price: String,
+    #[serde(rename = "m")]
+    pub is_maker: bool,
+    #[serde(rename = "c")]
+    pub client_order_id: String,
+    #[serde(rename = "S")]
+    pub side: String, // Consider enum for "BUY"/"SELL"
+    #[serde(rename = "L")]
+    pub last_price: String,
+    #[serde(rename = "l")]
+    pub last_quantity: String,
+    #[serde(rename = "t")]
+    pub trade_id: u64,
+    #[serde(rename = "i")]
+    pub order_id: u64,
 }
