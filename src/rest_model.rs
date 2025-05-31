@@ -466,7 +466,7 @@ pub struct Loan {
 }
 
 /// How long will an order stay alive
-#[derive(Eq, PartialEq, Debug, Serialize, Deserialize, Clone)]
+#[derive(Eq, PartialEq, Debug, Serialize, Deserialize, Clone, Copy)]
 pub enum TimeInForce {
     /// Good Till Canceled
     GTC,
@@ -480,7 +480,7 @@ pub enum TimeInForce {
     Other,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq, Eq)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum OrderResponse {
     Ack,
@@ -490,7 +490,7 @@ pub enum OrderResponse {
     Other,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq, Eq)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum SideEffectType {
     NoSideEffect,
@@ -501,7 +501,7 @@ pub enum SideEffectType {
     Other,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq, Eq)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum OrderSide {
     Buy,
@@ -518,7 +518,7 @@ impl Default for OrderSide {
 /// The allowed values are:
 /// STOP_ON_FAILURE - If the cancel request fails, the new order placement will not be attempted.
 /// ALLOW_FAILURE - new order placement will be attempted even if cancel request fails.
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, Copy)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum CancelReplaceMode {
     StopOnFailure,
@@ -540,7 +540,7 @@ impl Default for CancelReplaceMode {
 /// MARKET orders using quantity specifies how much a user wants to buy or sell based on the market price.
 /// MARKET orders using quoteOrderQty specifies the amount the user wants to spend (when buying) or receive (when selling) of the quote asset; the correct quantity will be determined based on the market liquidity and quoteOrderQty.
 /// MARKET orders using quoteOrderQty will not break LOT_SIZE filter rules; the order will execute a quantity that will have the notional value as close as possible to quoteOrderQty.
-#[derive(Debug, Serialize, Deserialize, Clone, PartialEq, Eq)]
+#[derive(Debug, Serialize, Deserialize, Clone, Copy, PartialEq, Eq)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum OrderType {
     Limit,
